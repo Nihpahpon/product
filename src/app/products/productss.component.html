@@ -1,0 +1,37 @@
+<div class="product-list">
+    <h1>Product</h1>
+    <p-button label="Add Product" (click)="showAddModal()"></p-button>
+</div>
+
+<p-table [value]="products" [paginator]="true" [rows]="10">
+    <ng-template pTemplate="header">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Image</th>
+            <th>Price</th>
+            <th>Description</th>
+            <th></th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+        <tr>
+            <td>{{product.id}}</td>
+            <td>{{product.title}}</td>
+            <td><img src="{{product.image}}" height="120px" /></td>
+            <td>{{product.description}}</td>
+            <td>{{product.price}}</td>
+            <td>
+                <button pButton icon="pi pi-check" class="p-button-rounded p-button-success mr-2"
+                    (click)="showEditProduct(product)">
+                </button> <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                    (click)="deleteProduct(product)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+<app-add-product [addModal]="addEditModal" [selectedProduct]="selectedProduct" (clickClose)="hideAddModal($event)"
+    (clickAddEdit)="saveProductList($event)"></app-add-product>
+
+<p-confirmDialog header="Delete" ></p-confirmDialog>
+<p-toast position="bottom-right"></p-toast>
